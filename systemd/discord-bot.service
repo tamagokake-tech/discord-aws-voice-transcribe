@@ -1,0 +1,27 @@
+[Unit]
+Description=Discord Voice Transcribe Bot
+# ネットワークが利用可能になってから起動
+After=network.target
+
+[Service]
+Type=simple
+User=root
+
+# 実行時のカレントディレクトリ
+WorkingDirectory=/root/discord-transcribe-bot-test
+
+# 環境変数ファイルの読み込み
+EnvironmentFile=/etc/systemd/system/discord-bot.env
+
+# Bot 起動コマンド
+ExecStart=/root/discord-transcribe-bot-test/venv/bin/python bot.py
+
+# Bot が異常終了した場合は自動再起動
+Restart=always
+
+# 再起動までの待機秒数
+RestartSec=5
+
+[Install]
+# マルチユーザー環境で起動
+WantedBy=multi-user.target
